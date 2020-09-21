@@ -38,8 +38,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\siebe\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\siebe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -50,9 +49,6 @@
       "packagesPath": "C:\\Users\\siebe\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\siebe\\Desktop\\ASP.Net Core\\Web-API\\UsersManagement.API\\UsersManagement.API\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\siebe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
