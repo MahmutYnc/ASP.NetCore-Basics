@@ -7,7 +7,7 @@ using HotelFinder.Business.Concrete;
 using HotelFinder.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace HotelFinder.API.Controllers
 {
@@ -28,9 +28,10 @@ namespace HotelFinder.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public List<Hotel> Get()
+        public IActionResult Get()
         {
-            return _hotelService.GetAllHotels();
+            var hotels = _hotelService.GetAllHotels();
+            return Ok(hotels);
         }
 
         /// <summary>
@@ -39,9 +40,15 @@ namespace HotelFinder.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public Hotel Get(int id)
+        public IActionResult Get(int id)
         {
-            return _hotelService.GetHotelById(id);
+            
+            var hotel = _hotelService.GetHotelById(id);
+            if (hotel != null)
+            {
+                return Ok(hotel);// 200 + data
+            }
+            return NotFound(); // 404
         }
 
         /// <summary>
@@ -50,9 +57,12 @@ namespace HotelFinder.API.Controllers
         /// <param name="hotel"></param>
         /// <returns></returns>
         [HttpPost]
-        public Hotel Post([FromBody]Hotel hotel)
+        public IActionResult Post([FromBody]Hotel hotel)
         {
-            return _hotelService.CreateHotel(hotel);
+           
+            var createdHotel = _hotelService.CreateHotel(hotel);
+            return CreatedAtAction("Get", new { id = createdHotel.Id }, createdHotel);//201 + data
+
         }
 
         /// <summary>
@@ -61,15 +71,26 @@ namespace HotelFinder.API.Controllers
         /// <param name="hotel"></param>
         /// <returns></returns>
         [HttpPut]
-        public Hotel Put([FromBody] Hotel hotel)
+        public IActionResult Put([FromBody] Hotel hotel)
         {
-            return _hotelService.UpdateHotel(hotel);
+            var updateHotel = _hotelService.GetHotelById(hotel.Id);
+            if (updateHotel != null)
+            {
+                return Ok(_hotelService.UpdateHotel(hotel));
+            }
+            return NotFound();
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _hotelService.DeleteHotel(id);
+            var deletedHotel = _hotelService.GetHotelById(id);
+            if (deletedHotel != null)
+            {
+                _hotelService.DeleteHotel(id);
+                return Ok();
+            }
+            return NotFound();
         }
     }
 }
