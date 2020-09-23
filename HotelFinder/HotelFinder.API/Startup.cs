@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using HotelFinder.Business.Abstract;
 using HotelFinder.Business.Concrete;
@@ -26,6 +27,17 @@ namespace HotelFinder.API
             services.AddSingleton<IHotelRepository, HotelRepository>();
             // Eğer constructer da Ihotelservice e ihtiyac varsa sen ona hotelmanager üret demekmiş
             services.AddSingleton<IHotelService, HotelManager>();
+
+            services.AddSwaggerDocument(config =>
+                {
+                    config.PostProcess = (doc => 
+                        {
+                            doc.Info.Title = "Hotel Finder API";
+                            doc.Info.Version = "1.0.13";
+                        }
+                    );
+                }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +49,8 @@ namespace HotelFinder.API
             }
 
             app.UseRouting();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {
