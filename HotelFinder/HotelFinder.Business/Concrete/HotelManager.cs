@@ -5,6 +5,7 @@ using HotelFinder.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HotelFinder.Business.Concrete
 {
@@ -27,9 +28,9 @@ namespace HotelFinder.Business.Concrete
             _hotelRepository.DeleteHotel(id);
         }
 
-        public List<Hotel> GetAllHotels()
+        public async Task<List<Hotel>> GetAllHotels()
         {
-            return _hotelRepository.GetAllHotels();
+            return await _hotelRepository.GetAllHotels();
 
         }
 

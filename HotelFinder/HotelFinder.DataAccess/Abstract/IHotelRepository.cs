@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HotelFinder.DataAccess.Abstract
 {
     public interface IHotelRepository
     {
-        List<Hotel> GetAllHotels();
+        Task<List<Hotel>> GetAllHotels();
 
         Hotel GetHotelById(int id);
 

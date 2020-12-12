@@ -1,9 +1,11 @@
 ﻿using HotelFinder.DataAccess.Abstract;
 using HotelFinder.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HotelFinder.DataAccess.Concrete
 {
@@ -29,11 +31,11 @@ namespace HotelFinder.DataAccess.Concrete
             }
         }
 
-        public List<Hotel> GetAllHotels()
+        public async Task<List<Hotel>> GetAllHotels()
         {
             using(var hotelDbContext = new HotelDbContext())
             {
-                return hotelDbContext.Hotels.ToList();
+                return await hotelDbContext.Hotels.ToListAsync();
             }
         }
 

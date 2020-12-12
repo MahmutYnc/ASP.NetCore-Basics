@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HotelFinder.Business.Abstract
 {
     public interface IHotelService
     {
-        List<Hotel> GetAllHotels();
+        Task<List<Hotel>> GetAllHotels();
 
         Hotel GetHotelById(int id);
 
